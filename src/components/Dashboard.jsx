@@ -1,60 +1,60 @@
-import React, { Component } from 'react'
-import '../css/Dashboard.css'
-import { BASEURL, callApi, getSession, setSession } from './Api';
-import MenuBar from './Menubar';
-import JobPosting from './JobPosting';
-import JobSearch from './JobSearch';
-import Profile from './Profile';
-
+import React, { Component } from "react";
+import "../css/Dashboard.css";
+import { BASEURL, callApi, getSession, setSession } from "./Api";
+import MenuBar from "./Menubar";
+import JobPosting from "./JobPosting";
+import JobSearch from "./JobSearch";
+import Profile from "./Profile";
+import { withTranslation } from "react-i18next"; // Import withTranslation HOC
 
 export default class Dashboard extends Component {
-  constructor(props)
-  {
+  constructor(props) {
     super(props);
-    this.state={fullname:'',activeComponent:''};
-    this.showFullname=this.showFullname.bind(this);
-    this.loadComponent=this.loadComponent.bind(this);
+    this.state = { fullname: "", activeComponent: "" };
+    this.showFullname = this.showFullname.bind(this);
+    this.loadComponent = this.loadComponent.bind(this);
   }
-  componentDidMount()
-  {
-    let csr=getSession("csrid");
-    //alert(csr);
-    if(csr==='')
-      this.logout();
-    let data=JSON.stringify({csrid:csr});
-    callApi("POST",BASEURL+"users/getfullname",data,this.showFullname);
+  componentDidMount() {
+    let csr = getSession("csrid");
+    if (csr === "") this.logout();
+    let data = JSON.stringify({ csrid: csr });
+    callApi("POST", BASEURL + "users/getfullname", data, this.showFullname);
   }
-  showFullname(response)
-  {
-    this.setState({fullname:response});
+  showFullname(response) {
+    this.setState({ fullname: response });
   }
-  logout()
-  {
-    setSession("csrid","",-1);
+  logout() {
+    setSession("csrid", "", -1);
     window.location.replace("/");
   }
-  loadComponent(mid){
-    let components={
-      "1":<JobPosting/>,
-      "2":<JobSearch/>,
-      "3":<Profile/>
+  loadComponent(mid) {
+    let components = {
+      1: <JobPosting />,
+      2: <JobSearch />,
+      3: <Profile />,
     };
-    this.setState({activeComponent:components[mid]});
+    this.setState({ activeComponent: components[mid] });
   }
   render() {
-    const{fullname,activeComponent}=this.state;
+    const { t } = this.props;
+    const { fullname, activeComponent } = this.state;
     return (
-      <div className='dashboard'>
-        <div className='headerr'>
-          <img className='logo' src='./images/logo1.png' alt='no'/>
-          <img className='logout' onClick={()=>this.logout()} src='./images/logout.png' alt='no'/>
+      <div className="dashboard">
+        <div className="headerr">
+          {/* <img className='logo' src='./images/logo1.png' alt='no'/> */}
+          <img
+            className="logout"
+            onClick={() => this.logout()}
+            src="./images/logout.png"
+            alt="no"
+          />
           <label>{fullname}</label>
         </div>
-        <div className='menu'>
-          <MenuBar onMenuClick ={this.loadComponent}/>
+        <div className="menu">
+          <MenuBar onMenuClick={this.loadComponent} />
         </div>
-        <div className='outlet'>{activeComponent}</div>
+        <div className="outlet">{activeComponent}</div>
       </div>
-    )
+    );
   }
 }

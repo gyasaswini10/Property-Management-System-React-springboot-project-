@@ -1,108 +1,262 @@
+/* General Container */
 .jpcontainer {
-  width: 100%;
-  height: 100%;
-  background: #E0F2F1;
-  color: #2C3E50;
-
-}
-
-.jpcontainer .header, .jpcontainer .footer {
-  width: 100%;
-  height: 35px;
-  line-height: 35px;
-  background: #008080;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-}
-
-.jpcontainer .content {
-  width: 100%;
-  
-  height: calc(100% - 65px);
-  overflow: auto;
-}
-
-.jpcontainer .popup {
-  width: 100%;
-  
-  height: 100%;
-  position: fixed;
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.jpcontainer .popup .popupwindow {
-  width: 500px;
-  
-  height: 630px;
-  position: absolute;
-  background: white;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  font-family: "Arial", sans-serif;
+  background-color: #f5f5f5;
+  padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.jpcontainer .popup .popupwindow .popupheader {
+.popupwindow {
+  background-color: white;
+  padding: 30px;
+  width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popupcontent label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+.popupcontent input,
+.popupcontent select,
+.popupcontent textarea {
   width: 100%;
-  height: 40px;
-  line-height: 40px;
-  background: #008080;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.popupcontent input:focus,
+.popupcontent select:focus,
+.popupcontent textarea:focus {
+  border-color: #007bff;
+}
+
+.popupfooter {
+  text-align: right;
+}
+
+/* Close Button */
+.popupheader span {
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+}
+
+.popupheader span:hover {
+  color: #e74c3c;
+}
+
+/* Contact Section - Country Code + Phone Number */
+.contact-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* .contact-container select,
+.contact-container input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+} */
+/* 
+.contact-container select:focus,
+.contact-container input:focus {
+  border-color: #007bff;
+}
+
+.contact-container select {
+  flex: 0 0 120px;
+} */
+
+/* Button Styles */
+button {
+  background-color: #496580;
   color: white;
+
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Header */
+.header {
+  font-size: 24px;
   font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Job Listing */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.result {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result .div1 {
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
-}
-
-.jpcontainer .popup .popupwindow .popupheader span {
-  font-size: 16pt;
-  cursor: pointer;
-}
-
-.jpcontainer .popup .popupwindow .popupcontent {
-  padding: 15px;
-  width: calc(100% - 30px);
-  height: calc(100% - 65px);
-  overflow: auto;
-  background: white;
-  color: #2C3E50;
-}
-
-.jpcontainer .popup .popupwindow .popupcontent label {
+  margin-bottom: 10px;
   font-weight: bold;
-  display: block;
+  color: #333;
+}
+
+.result .div2 {
+  font-size: 14px;
+  color: #777;
+}
+
+.result .div3 {
+  font-size: 16px;
+  color: #333;
   margin-top: 10px;
 }
 
-.jpcontainer .popup .popupwindow .popupcontent input,
-.jpcontainer .popup .popupwindow .popupcontent select,
-.jpcontainer .popup .popupwindow .popupcontent textarea {
-  width: 100%;
-  margin-top: 3px;
-  border: 1px solid #008080;
-  border-radius: 4px;
-  padding: 5px;
-}
-
-.jpcontainer .popup .popupwindow .popupcontent textarea {
-  height: 80px;
-}
-
-.jpcontainer .popup .popupwindow .popupcontent button {
-  width: 100px;
-  height: 35px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 4px;
-  font-size: 10pt;
-  color: white;
-  background: #008080;
+.result img {
   cursor: pointer;
+  transition: opacity 0.3s;
 }
 
-.jpcontainer .popup .popupwindow .popupcontent button:hover {
-  background: #006666;
+.result img:hover {
+  opacity: 0.7;
+}
+
+.result img:active {
+  opacity: 0.5;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.footer button {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.footer button:hover {
+  background-color: #0056b3;
+}
+/* Popup Window Background */
+.popup {
+  display: none;
+  position: fixed;
+  top: 20px; /* Add space from the top of the screen */
+  left: 0;
+  right: 0;
+  bottom: 20px; /* Add space from the bottom of the screen */
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align the popup to the top of the space */
+  z-index: 1000;
+  padding-top: 20px; /* Additional padding to ensure space from the top */
+}
+
+/* The popup window itself */
+.popupwindow {
+  background-color: white;
+  padding: 30px;
+  width: 500px;
+  max-width: 90%; /* Ensures it doesn't overflow on smaller screens */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* Allows vertical scrolling */
+  max-height: 80vh; /* Limits the height of the popup to 80% of the viewport height */
+}
+
+/* Popup header */
+.popupheader {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Popup content labels and inputs */
+.popupcontent label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+.popupcontent input,
+.popupcontent select,
+.popupcontent textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.popupcontent input:focus,
+.popupcontent select:focus,
+.popupcontent textarea:focus {
+  border-color: #007bff;
+}
+
+/* Close Button */
+.popupheader span {
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+}
+
+.popupheader span:hover {
+  color: #e74c3c;
+}
+
+/* Footer for Popup */
+.popupfooter {
+  text-align: right;
 }

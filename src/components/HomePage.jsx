@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import "../css/HomePage.css";
 import Footer from "./Footer";
-export default function HomePage() {
+import { withTranslation } from "react-i18next";
+
+function HomePage({ t }) {
   useEffect(() => {
     const animateNumbers = (element, target) => {
       let current = 0;
@@ -13,17 +15,16 @@ export default function HomePage() {
             current = target;
             clearInterval(interval);
             setTimeout(() => {
-              current = 0; // Reset the current value
-              animate(); // Restart the animation
+              current = 0;
+              animate();
             }, 5000);
           }
           element.textContent = Math.floor(current);
-        }, 30); // Adjust interval time
+        }, 30);
       };
       animate();
     };
 
-    // Get all number elements and animate
     const numbers = document.querySelectorAll(".Achievement h3");
     numbers.forEach((number) => {
       const target = parseInt(number.getAttribute("data-target"), 10);
@@ -33,100 +34,86 @@ export default function HomePage() {
 
   return (
     <div>
-            <div
-  className="video-container"
-  style={{
-     // Display as a flex container
-    position: "", // Ensure no gaps around the video
-    top: 0,               // Remove any top gap
-    left: 0,              // Remove any left gap
-    right: 0,             // Remove any right gap
-    bottom: 0,            // Ensure the container fills the whole screen
-    width: "100%",        // Full width of the viewport
-    height: "100vh",      // Full height of the viewport
-    overflow: "hidden",   // Hide any overflow
-    zIndex: -1,           // Send the video behind other content
-  }}
->
+      <div
+        className="video-container"
+        style={{
+          position: "",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: "100%",
+          height: "100vh",
+          overflow: "hidden",
+          zIndex: -1,
+          marginTop: "-20px",
+        }}
+      >
+        <video
+          src="./../../public/images/homepage.mp4"
+          autoPlay
+          loop
+          muted
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      </div>
 
- 
-  <video
-    src="./../../public/images/homepage.mp4"
-    autoPlay
-    loop
-    muted
-    style={{
-      objectFit: "cover", // Ensures the video covers the entire area without distortion
-      width: "100%",      // Full width
-      height: "100%",     // Full height
-    }}
-  />
-</div>
-      <div className="HomePage1" style={{ display: "flex"}}>
-  
-
-
-
-
-      <br></br>
+      <div className="HomePage1" style={{ display: "flex" }}>
         <div className="text">
           <h5 style={{ textAlign: "left", color: "Black", fontSize: "17px" }}>
-            Whether you're a property owner, a tenant, or looking for expert
-            advice, we're here to help. Our team is dedicated to creating the
-            best experience for both property owners and residents.
+            {t("intro")}
           </h5>
         </div>
-        {/* src="./../public/images/gif1.gif" */}
         <img
           src="./../../public/images/home_page_pic.jpeg"
           alt="Home Page GIF"
           style={{ width: "30%", height: "auto", marginBottom: "20px" }}
         />
       </div>
+
       <div className="Our_Achievements">
-        <h2>Our Achievements</h2>
+        <h2>{t("Our Achievements")}</h2>
         <div className="Achievements">
           <div className="Achievement">
             <h3 data-target="100">0</h3>
-            <p>Properties Managed</p>
+            <p>{t("Properties Managed")}</p>
           </div>
           <div className="Achievement">
             <h3 data-target="200">0</h3>
-            <p>Happy Residents</p>
+            <p>{t("Happy Residents")}</p>
           </div>
           <div className="Achievement">
             <h3 data-target="50">0</h3>
-            <p>Years of Experience</p>
+            <p>{t("Years of Experience")}</p>
           </div>
         </div>
       </div>
+
       <div className="WhyOurCompany">
-        <h2>Why Our Company?</h2>
+        <h2>{t("Why Our Company?")}</h2>
         <div className="CompanyInfo">
           <div className="InfoItem">
-            <h3>Qualified Property Dealers</h3>
-            <p>
-              Our network includes qualified property dealers & registered
-              members from CREDAI and APREDA.
-            </p>
+            <h3>{t("Qualified Property Dealers")}</h3>
+            <p>{t("Qualified Property Dealers desc")}</p>
           </div>
           <div className="InfoItem">
-            <h3>Buy, Rent and Lease Genuine Properties</h3>
-            <p>
-              We offer a wide range of genuine properties for buying, renting,
-              and leasing.
-            </p>
+            <h3>{t("Buy Rent Lease")}</h3>
+            <p>{t("Buy Rent Lease desc")}</p>
           </div>
           <div className="InfoItem">
-            <h3>Simply Register to List Your Properties</h3>
-            <p>
-              Register with us to easily list your properties and reach a wider
-              audience.
-            </p>
+            <h3>{t("Register Properties")}</h3>
+            <p>{t("Register Properties desc")}</p>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
 }
+
+export default withTranslation()(HomePage);

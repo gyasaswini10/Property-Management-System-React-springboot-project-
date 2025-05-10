@@ -11,7 +11,7 @@ body {
   padding: 10px 20px;
   overflow: hidden;
   background-color: white;
-  box-shadow: white 0px 6px 6px -2px,white  0px 3px 3px -3px;
+  box-shadow: white 0px 6px 6px -2px, white 0px 3px 3px -3px;
 }
 
 .NavList {
@@ -37,7 +37,7 @@ body {
 }
 
 .NavList a:hover {
-  background-color:  #95B8D1;;
+  background-color: #95b8d1;
   color: black;
   box-shadow: white 10px 20px 10px 20px inset;
   transform: rotateY(180deg);
@@ -48,15 +48,14 @@ body {
 }
 
 .BlackBackground {
-  
   background-color: white;
-width: 100%;
+  width: 100%;
 
   box-shadow: black 0px 6px 6px -2px, black 0px 3px 3px -3px;
 }
-.NavList a{
-background-color: white;
-color: black;
+.NavList a {
+  background-color: white;
+  color: black;
 }
 
 /* About Us Section */
@@ -80,19 +79,19 @@ h1 {
   gap: 30px;
   flex-wrap: wrap;
 }
-#image-logo{
+#image-logo {
   margin-top: 2vh;
 }
-.image{
+.image {
   margin-top: 50vh;
 }
 .team-member {
   width: 20%;
   height: 30vh;
   padding: 3px;
-  background-color: #95B8D1;
+  background-color: #95b8d1;
   border-radius: 8px;
-  box-shadow: 0 2px 8px #95B8D1; /* Green shadow */
+  box-shadow: 0 2px 8px #95b8d1; /* Green shadow */
 }
 
 .team-box h3 {
@@ -113,7 +112,7 @@ h1 {
 }
 
 .social-links a:hover {
-  color: #95B8D1; /* Darker green for hover effect */
+  color: #95b8d1; /* Darker green for hover effect */
 }
 
 @media (max-width: 768px) {

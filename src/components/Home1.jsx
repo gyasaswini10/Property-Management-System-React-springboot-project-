@@ -4,14 +4,24 @@ import { BASEURL, callApi, setSession } from "./Api.js";
 import { Routes, Route } from "react-router-dom";
 import "./Home12.css";
 import "./../css/Home1.css";
+import { withTranslation } from "react-i18next"; // Import withTranslation HOC
+
 import HomePage from "./HomePage";
+// import PayApp from "./PayApp";
+import Captcha from "./Captcha"; // Import Captcha component
+import LanguageSelector from "../LanguageSelector.jsx";
+
 export class Home1 extends Component {
   constructor() {
     super();
     this.state = {
       loggedIn: !!sessionStorage.getItem("csrid"),
       fullname: sessionStorage.getItem("fullname") || "",
+      captchaValid: false,
+      loginAttempts: 0,
+      blockUntil: null,
     };
+
     this.userRegistration = this.userRegistration.bind(this);
     this.forgotPassword = this.forgotPassword.bind(this);
     this.signin = this.signin.bind(this);
@@ -120,7 +130,7 @@ export class Home1 extends Component {
 
     callApi(
       "POST",
-      "http://localhost:8080/users/signup",
+      "http://54.159.4.87:8080/leaselinker2/users/signup",
       data,
       this.getResponse
     );
@@ -145,7 +155,7 @@ export class Home1 extends Component {
       return;
     }
 
-    let url = "http://localhost:8080/users/forgotpassword/" + username.value;
+    let url = "http://54.159.4.87:8080/leaselinker2/users/forgotpassword/" + username.value;
     callApi("GET", url, "", this.forgotPasswordResponse);
   }
 
@@ -156,8 +166,16 @@ export class Home1 extends Component {
     else
       responseDiv.innerHTML = `<br/><br/><label style='color:red'>${data[1]}</label>`;
   }
-
   signin() {
+    const now = new Date().getTime();
+    const blockUntil = localStorage.getItem("blockUntil");
+
+    if (blockUntil && now < parseInt(blockUntil)) {
+      const remaining = Math.ceil((parseInt(blockUntil) - now) / 1000);
+      responseDiv.innerHTML = `<br/><br/><label style="color:red">Too many failed attempts. Try again in ${remaining} seconds.</label>`;
+      return;
+    }
+
     username.style.border = "";
     password.style.border = "";
     responseDiv.innerHTML = "";
@@ -172,6 +190,10 @@ export class Home1 extends Component {
       password.focus();
       return;
     }
+    if (!this.state.captchaValid) {
+      responseDiv.innerHTML = `<br/><br/><label style="color:red">Please enter the correct CAPTCHA</label>`;
+      return;
+    }
 
     let data = JSON.stringify({
       email: username.value,
@@ -180,34 +202,34 @@ export class Home1 extends Component {
 
     callApi(
       "POST",
-      BASEURL + "users/signin",
+      "http://54.159.4.87:8080/leaselinker2/users/signin",
       data,
       this.signinResponse.bind(this)
     );
   }
 
   signinResponse(res) {
-    let rdata=res.split('::');
-    if(rdata[0]==='200'){
-      setSession("csrid",rdata[1],1);
+    let rdata = res.split("::");
+
+    if (rdata[0] === "200") {
+      setSession("csrid", rdata[1], 1);
+      localStorage.removeItem("loginAttempts");
+      localStorage.removeItem("blockUntil");
       window.location.replace("/dashboard");
-    }
-    else{
-      responseDiv.innerHTML=`<br/><br/><label style="color:red">${rdata[1]}</label>`
-    }
-    // let rdata = res.split("::");
-    // if (rdata[0] === "200") {
-    //   const userId = rdata[1];
-    //   const fullname = rdata[2];
+    } else {
+      let attempts = parseInt(localStorage.getItem("loginAttempts") || "0") + 1;
+      localStorage.setItem("loginAttempts", attempts);
 
-    //   sessionStorage.setItem("csrid", userId);
-    //   sessionStorage.setItem("fullname", fullname);
-
-    //   this.setState({ loggedIn: true, fullname });
-    //   document.getElementById("popup").style.display = "none";
-    // } else {
-    //   responseDiv.innerHTML = `<br/><br/><label style="color:red">${rdata[1]}</label>`;
-    // }
+      if (attempts >= 3) {
+        const blockTime = 60 * 1000; // 1 minute
+        const blockUntil = new Date().getTime() + blockTime;
+        localStorage.setItem("blockUntil", blockUntil);
+        localStorage.setItem("loginAttempts", 0);
+        responseDiv.innerHTML = `<br/><br/><label style="color:red">Too many failed attempts. Try again in 60 seconds.</label>`;
+      } else {
+        responseDiv.innerHTML = `<br/><br/><label style="color:red">${rdata[1]}</label>`;
+      }
+    }
   }
 
   logout() {
@@ -218,49 +240,58 @@ export class Home1 extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="base">
+        {/* <PayApp/> */}
         <div id="popup" onClick={this.closeSignin}>
           <div className="popupWindow">
-            <div id="popupHeader">Login</div>
+            <div id="popupHeader">{t("Login")}</div>
             <div id="signin">
-              <label className="usernameLabel">Username:</label>
+              <label className="usernameLabel">{t("Username")}:</label>
               <input type="text" id="username" />
-              <label className="passwordLabel">Password:</label>
+              <label className="passwordLabel">{t("Password")}:</label>
               <input type="password" id="password" />
               <div className="forgotPassword">
+                {" "}
                 <label onClick={this.forgotPassword}>Forgot Password?</label>
               </div>
+              <Captcha
+                captchaValid={(valid) => this.setState({ captchaValid: valid })}
+              />
+
               <button className="siginButton" onClick={this.signin}>
                 Sign In
               </button>
               <div className="div1" id="responseDiv"></div>
               <div className="div2">
-                Don't have an account?
-                <label onClick={this.showSignup}>SIGNUP NOW</label>
+                {t("Don't have an account")}?
+                <label onClick={this.showSignup}>{t("SIGNUP NOW")}</label>
               </div>
             </div>
 
             <div id="signup">
-              <label>Full Name:</label>
+              <label>{t("Full Name")}:</label>
               <input type="text" id="fullname" />
-              <label>Email:</label>
+              <label>{t("Email")}:</label>
               <input type="email" id="email" />
-              <label>Select Role:</label>
+              <label>{t("Select Role")}:</label>
               <select id="role">
                 <option value=""></option>
-                <option value="1">Admin</option>
-                <option value="2">Owner</option>
-                <option value="3">Tenant</option>
+                <option value="1">{t("Admin")}</option>
+                <option value="2">{t("Owner")}</option>
+                <option value="3">{t("Tenant")}</option>
               </select>
-              <label>Password:</label>
+              <label>{t("Password")}:</label>
               <input type="password" id="signuppassword" />
-              <label>Confirm Password:</label>
+              <label>{t("Confirm Password")}:</label>
               <input type="password" id="confirmpassword" />
-              <button onClick={this.userRegistration}>Register Now</button>
+              <button onClick={this.userRegistration}>
+                {t("Register Now")}
+              </button>
               <div>
-                Already have an account?{" "}
-                <span onClick={this.showSignin}>SIGN IN</span>
+                {t("Already have an account")}?{" "}
+                <span onClick={this.showSignin}>{t("SIGN IN")}</span>
               </div>
             </div>
           </div>
@@ -277,45 +308,47 @@ export class Home1 extends Component {
                 />
               </li>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">{t("Home")}</Link>
+              </li>
+
+              <li>
+                <Link to="/dashboard">{t("Dashboard")}</Link>
+              </li>
+
+              <li>
+                <Link to="/contact">{t("Contact")}</Link>
               </li>
               <li>
-                <Link to="/Rentals">Rentals</Link>
+                <Link to="/AboutUs">{t("About")}</Link>
               </li>
-              <li><Link to="/dashboard">Dashboard</Link></li>
+              <div>
+                <LanguageSelector />
+              </div>
               <li>
-                <Link to="/PropertyManager">Property Manager</Link>
-              </li>
-              <li>
-                <Link to="/contact">Contact</Link>
-              </li>
-              
-<li><Link to="/chatbot">
-  <div
-    style={{
-      position: "fixed",
-      bottom: "30px",
-      right: "30px",
-      width: "60px",
-      height: "60px",
-      backgroundColor: "#007bff",
-      color: "white",
-      borderRadius: "50%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      fontSize: "30px",
-      boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-      cursor: "pointer",
-      zIndex: 1000,
-    }}
-    title="Open Chatbot"
-  >
-    💬
-  </div>
-</Link></li>
-              <li>
-                <Link to="/AboutUs">About</Link>
+                <Link to="/chatbot">
+                  <div
+                    style={{
+                      position: "fixed",
+                      bottom: "30px",
+                      right: "30px",
+                      width: "60px",
+                      height: "60px",
+                      backgroundColor: "#007bff",
+                      color: "white",
+                      borderRadius: "50%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: "30px",
+                      boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                      cursor: "pointer",
+                      zIndex: 1000,
+                    }}
+                    title="Open Chatbot"
+                  >
+                    💬
+                  </div>
+                </Link>
               </li>
 
               {this.state.loggedIn ? (
@@ -335,7 +368,7 @@ export class Home1 extends Component {
                           alt="Logout"
                           width="20px"
                         /> */}
-                        <i className="fas fa-sign-out-alt">Logout</i>
+                        <i className="fas fa-sign-out-alt">{t("Logout")}</i>
                       </div>
                     </div>
                   </li>
@@ -345,14 +378,14 @@ export class Home1 extends Component {
                   <li>
                     <div className="right" onClick={this.showSignin}>
                       <div className="signText">
-                        <span>Sign-In</span>
+                        <span>{t("Sign-In")}</span>
                       </div>
                     </div>
                   </li>
                   <li>
                     <div className="right" onClick={this.showSignup}>
                       <div className="signText">
-                        <span>Sign-up</span>
+                        <span>{t("Sign-up")}</span>
                       </div>
                     </div>
                   </li>
@@ -370,7 +403,7 @@ export class Home1 extends Component {
 
         <div className="footer1">
           <div className="footer1left">
-            <h3>R Sai Sree 2300030570</h3>
+            <h3>{t("R Sai Sree")} 2300030570</h3>
           </div>
           <div className="footer1right">
             <img src="./images/facebook.png" alt="facebook" />
@@ -383,4 +416,4 @@ export class Home1 extends Component {
   }
 }
 
-export default Home1;
+export default withTranslation()(Home1);

@@ -10,8 +10,9 @@ import {
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
 import Footer from "./Footer";
-
+import { withTranslation } from "react-i18next";
 const Contact = () => {
+  
   const {
     register,
     handleSubmit,
@@ -110,7 +111,7 @@ const Contact = () => {
               height: "100%",
               boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
               borderRadius: "8px",
-       
+
               backgroundColor: "white ",
               color: "black",
             }}
@@ -129,7 +130,7 @@ const Contact = () => {
               height: "100%",
               boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
               borderRadius: "8px",
-            
+
               backgroundColor: "white ",
               color: "black",
             }}
@@ -177,7 +178,7 @@ const Contact = () => {
             style={{ margin: "10px 0" }}
             color="warning"
             InputLabelProps={{ style: { color: "black" } }}
-            InputProps={{ style: { color: "white" } }}
+            InputProps={{ style: { color: "black" } }}
             sx={inputStyle}
           />
           <TextField

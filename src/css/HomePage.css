@@ -2,7 +2,7 @@
 body {
   background-color: white;
   color: black;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -63,18 +63,27 @@ body {
 }
 
 .Achievement {
-  background-color:  #95B8D1;
+  background-color: #40e0d0;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   width: 250px;
-  box-shadow: #95B8D1 0px -50px 36px -28px inset;
-  transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.3s ease;
+  box-shadow: #bbfff8 0px -50px 36px -28px inset;
+  transition: transform 0.5s ease, box-shadow 0.5s ease,
+    background-color 0.3s ease;
 }
-
+/*
+Turquoise (#40E0D0)    
+ ,  Soft Peach (#FFCC99) 
+ 
+ 
+ ,Soft Beige (#F5F5DC) 
+   ,Mint Green (#98FF98) 
+    ,Soft Blue (#A8D0E6)
+*/
 .Achievement:hover {
   transform: translateY(-10px) scale(1.05);
-  box-shadow:black 0px -50px 36px -28px inset;
+  box-shadow: #94fff4 0px -50px 36px -28px inset;
 }
 
 .Achievement h3 {
@@ -109,18 +118,19 @@ body {
 }
 
 .InfoItem {
-  background-color:  #95B8D1;
+  background-color: #40e0d0;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: #95B8D1 0px -50px 36px -28px inset;
+  box-shadow: #bbfff8 0px -50px 36px -28px inset;
   text-align: center;
   width: 250px;
-  transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.3s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease,
+    background-color 0.3s ease;
 }
 
 .InfoItem:hover {
   transform: translateY(-10px) scale(1.05);
-  box-shadow:black 0px -50px 36px -28px inset;
+  box-shadow: #94fff4 0px -50px 36px -28px inset;
 }
 
 .InfoItem h3 {
@@ -203,38 +213,40 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .HomePage1 {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .text {
-      max-width: 100%;
-      margin-bottom: 20px;
+    max-width: 100%;
+    margin-bottom: 20px;
   }
 
   .Achievements {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .CompanyInfo {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .InfoItem {
-      width: 80%;
-      margin-bottom: 20px;
+    width: 80%;
+    margin-bottom: 20px;
   }
 
   .footer-container {
-      flex-direction: column;
-      text-align: center;
+    flex-direction: column;
+    text-align: center;
   }
 
-  .footer-info, .footer-links, .footer-stats {
-      text-align: center;
-      margin-bottom: 20px;
+  .footer-info,
+  .footer-links,
+  .footer-stats {
+    text-align: center;
+    margin-bottom: 20px;
   }
 }

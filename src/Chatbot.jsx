@@ -5,13 +5,11 @@ import { Chat } from "./components/Chat/Chat";
 import { Controls } from "./components/Controls/Controls";
 import "./../src/App.styles.css";
 import styles from "./App.module.css";
-
 function Chatbot() {
   const assistant = new Assistant();
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-
   function updateLastMessageContent(content) {
     setMessages((prevMessages) =>
       prevMessages.map((message, index) =>
@@ -21,18 +19,15 @@ function Chatbot() {
       )
     );
   }
-
   function addMessage(message) {
     setMessages((prevMessages) => [...prevMessages, message]);
   }
-
   async function handleContentSend(content) {
     addMessage({ content, role: "user" });
     setIsLoading(true);
     try {
       const result = await assistant.chatStream(content, messages);
       let isFirstChunk = false;
-
       for await (const chunk of result) {
         if (!isFirstChunk) {
           isFirstChunk = true;
@@ -40,10 +35,8 @@ function Chatbot() {
           setIsLoading(false);
           setIsStreaming(true);
         }
-
         updateLastMessageContent(chunk);
       }
-
       setIsStreaming(false);
     } catch (error) {
       addMessage({
@@ -54,23 +47,28 @@ function Chatbot() {
       setIsStreaming(false);
     }
   }
-
   return (
     <div className={styles.App}>
       {isLoading && <Loader />}
       <header className={styles.Header}>
-        <img className={styles.Logo} src="./../public/images/chat.avif" />
+        <img
+          className={styles.Logo}
+          src="/images/chat.png"
+          style={{ width: "128px", height: "128px" }} // Inline styles added here
+        />
+
         <h2 className={styles.Title}>AI Chatbot</h2>
       </header>
       <div className={styles.ChatContainer}>
         <Chat messages={messages} />
       </div>
-      <Controls
-        isDisabled={isLoading || isStreaming}
-        onSend={handleContentSend}
-      />
+      <div style={{ width: "80%" }}>
+        <Controls
+          isDisabled={isLoading || isStreaming}
+          onSend={handleContentSend}
+        />
+      </div>
     </div>
   );
 }
-
 export default Chatbot;

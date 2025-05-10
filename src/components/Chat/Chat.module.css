@@ -4,7 +4,6 @@
   gap: 8px;
   height: 100%;
   padding: 8px;
-  overflow-y: auto;
 }
 
 .Group {
@@ -21,11 +20,21 @@
 .Message {
   width: 90%;
   padding: 0 16px;
-  border-radius: 16px;
+  border-radius: 3px;
   font-size: 14px;
 
   &[data-role="user"] {
     align-self: flex-end;
-    background: light-dark(#f3f3f3, #303030);
+    background: light-dark(rgb(182, 182, 218), #303030);
+  }
+
+  /* Add background color for chatbot's reply */
+  &[data-role="assistant"] {
+    align-self: flex-start;
+    background: light-dark(
+      rgb(185, 239, 239),
+      #444444
+    ); /* Modify colors as needed */
+    color: black; /* Optional: change text color for better contrast */
   }
 }
