@@ -50,7 +50,7 @@ function HomePage({ t }) {
         }}
       >
         <video
-          src="./../../public/images/homepage.mp4"
+          src="/images/homepage.mp4"
           autoPlay
           loop
           muted
@@ -69,7 +69,7 @@ function HomePage({ t }) {
           </h5>
         </div>
         <img
-          src="./../../public/images/home_page_pic.jpeg"
+          src="/images/home_page_pic.jpeg"
           alt="Home Page GIF"
           style={{ width: "30%", height: "auto", marginBottom: "20px" }}
         />

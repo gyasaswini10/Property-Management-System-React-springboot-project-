@@ -302,7 +302,7 @@ export class Home1 extends Component {
             <ul className="NavList">
               <li id="image-logo">
                 <img
-                  src="./../../public/images/1.png"
+                  src="/images/1.png"
                   width="230vh"
                   alt="logo"
                 />
@@ -403,7 +403,7 @@ export class Home1 extends Component {
 
         <div className="footer1">
           <div className="footer1left">
-            <h3>{t("R Sai Sree")} 2300030570</h3>
+            <h3>{t("")} </h3>
           </div>
           <div className="footer1right">
             <img src="./images/facebook.png" alt="facebook" />

@@ -289,13 +289,13 @@ export default class PropertyPosting extends Component {
                   <label>{data.nameOfOwner}</label>
                   <span>{data.cost}</span>
                   <img
-                    src="images/delete.png"
+                    src="/images/delete.png"
                     alt="delete"
                     onClick={() => this.deleteData(data.id)}
                     width={"30px"}
                   />
                   <img
-                    src="images/pen.png"
+                    src="/images/pen.png"
                     alt="edit"
                     onClick={() => this.updateData(data.id)}
                     width={"30px"}
