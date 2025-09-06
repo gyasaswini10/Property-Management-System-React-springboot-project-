@@ -1,0 +1,84 @@
+import java.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.multipart.MultipartFile;
+import com.example.demo.model.Property;
+import com.example.demo.model.PropertyManager;
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/jobs")
+public class PropertyController {
+
+    @Autowired
+    PropertyManager JM;
+
+    // Handle image upload
+    @PostMapping("/upload")
+    public String uploadProperty(
+            @RequestParam("nameOfOwner") String nameOfOwner,
+            @RequestParam("contact") String contact,
+            @RequestParam("state") String state,
+            @RequestParam("location") String location,
+            @RequestParam("propertyToBe") String propertyToBe,
+            @RequestParam("cost") Double cost,
+            @RequestParam("description") String description,
+            @RequestParam("image") MultipartFile image) {
+
+        try {
+            long maxSize = 10 * 1024 * 1024;  // 10 MB max file size
+            if (image.getSize() > maxSize) {
+                return "400::File size exceeds the maximum limit of 10 MB";
+            }
+
+            Property property = new Property();
+            property.setNameOfOwner(nameOfOwner);
+            property.setContact(contact);
+            property.setState(state);
+            property.setLocation(location);
+            property.setPropertyToBe(propertyToBe);
+            property.setCost(cost);
+            property.setDescription(description);
+            property.setImageFile(image.getBytes());  // Store image bytes
+            property.setImageFileName(image.getOriginalFilename());  // Store image file name
+
+            return JM.createJob(property);  // Save the job to the database
+        } catch (Exception e) {
+            return "500::" + e.getMessage();
+        }
+    }
+
+    // Get property by ID, including base64-encoded image
+    @GetMapping("/getdata/{id}")
+    public Property getData(@PathVariable("id") Long id) {
+        Property property = JM.getPropertyById(id);
+        if (property != null && property.getImageFile() != null) {
+            // Convert image file bytes to Base64 string
+            String imageBase64 = Base64.getEncoder().encodeToString(property.getImageFile());
+            property.setImageBase64(imageBase64);  // Set the base64 image string in the Property object
+        }
+        return property;  // Return the property with base64 image data
+    }
+
+    // Other endpoints (create, read, update, delete)
+    @PostMapping("/create")
+    public String create(@RequestBody Property property) {
+        return JM.createJob(property);
+    }
+
+    @GetMapping("/read")
+    public String read() {
+        return JM.readJobs();
+    }
+
+    @PutMapping("/update")
+    public String update(@RequestBody Property property) {
+        return JM.updateJob(property);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        return JM.deleteJob(id);
+    }
+}

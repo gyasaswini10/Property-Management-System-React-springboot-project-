@@ -1,0 +1,96 @@
+package klu.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "jobs")
+public class Jobs {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "company")
+    private String company;
+
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "jobtype")
+    private String jobType;
+
+    @Column(name = "salary")
+    private String salary;
+
+    @Column(name = "description")
+    private String description;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // toString() method
+    @Override
+    public String toString() {
+        return "Jobs [id=" + id + ", title=" + title + ", company=" + company + 
+               ", location=" + location + ", jobType=" + jobType + 
+               ", salary=" + salary + ", description=" + description + "]";
+    }
+}

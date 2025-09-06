@@ -1,0 +1,55 @@
+package com.example.demo.controller;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Properties;
+import com.example.demo.model.Property;
+import com.example.demo.model.PropertyManager;
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/jobs")
+public class PropertyController {
+	
+	@Autowired
+	PropertyManager JM;
+	  @PostMapping("/create")
+	  public String create(@RequestBody Property J)
+	  {
+	    return JM.createJob(J);
+	  }
+	  @GetMapping("/read")
+	  public String read() {
+	  	return JM.readJobs();
+	  }
+	  @GetMapping("/getdata/{id}")
+	  public String getData(@PathVariable("id") Long ID)
+	  {
+	    return JM.getData(ID);
+	  }
+	  
+	  @PutMapping("/update")
+	  public String update(@RequestBody Properties J)
+	  {
+	    return JM.updateJob(J);
+	  }
+	  @DeleteMapping("/delete/{id}")
+	  public String delete(@PathVariable("id") Long ID)
+	  {
+	    return JM.deleteJob(ID);
+	  }
+	  
+	  
+	  }

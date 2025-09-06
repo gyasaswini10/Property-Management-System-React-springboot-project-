@@ -1,0 +1,137 @@
+package com.example.demo.model;
+
+import java.util.List;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.google.gson.GsonBuilder;
+
+import com.example.demo.repository.*;
+
+@Service
+public class PropertyManager {
+@Autowired
+PropertiesRepository JR;
+public String createJob(Property J)
+{
+  try
+  {
+    JR.save(J);
+    return "200::New Property has been added";
+  }catch(Exception e)
+  {
+    return "400::" + e.getMessage();
+  }
+
+}
+//public String readJobs() {
+//	try {
+//		List<Property> joblist=JR.findAll();
+//		return new GsonBuilder().create().toJson(joblist);
+//	}
+//	catch(Exception e) {
+//		return "400::" +e.getMessage();
+//	}
+//}
+@GetMapping("/read")
+public String readJobs() {
+    try {
+        List<Property> joblist = JR.findAll();
+        List<JobResponse> jobResponses = new ArrayList<>();
+        
+        // Map each Property object to a new response object that includes the image URL
+        for (Property job : joblist) {
+            JobResponse response = new JobResponse();
+            response.setId(job.getId());
+            response.setNameOfOwner(job.getNameOfOwner());
+            response.setContact(job.getContact());
+            response.setState(job.getState());
+            response.setLocation(job.getLocation());
+            response.setPropertyToBe(job.getPropertyToBe());
+            response.setCost(job.getCost());
+            response.setDescription(job.getDescription());
+            
+            if (job.getImageFile() != null) {
+                String imageUrl = "http://localhost:8080/jobs/image/" + job.getId(); // Adjust the URL to match your backend
+                response.setImageUrl(imageUrl);  // Manually add the image URL to the response
+            }
+            
+            jobResponses.add(response);
+        }
+        
+        return new GsonBuilder().create().toJson(jobResponses);
+    } catch (Exception e) {
+        return "400::" + e.getMessage();
+    }
+}
+
+// This class is a simplified response model that includes the imageUrl
+public class JobResponse {
+    private Long id;
+    private String nameOfOwner;
+    private String contact;
+    private String state;
+    private String location;
+    private String propertyToBe;
+    private String cost;
+    private String description;
+    private String imageUrl;  // Add the imageUrl field
+
+    // Getters and Setters for all fields
+    // Add imageUrl getter and setter
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    // Other getters and setters
+    // ...
+}
+
+public String getData(Long id)
+  {
+    try
+    {
+    	Property J = JR.findById(id).get();
+      return new GsonBuilder().create().toJson(J);
+    }catch(Exception e)
+    {
+      return "404::"+e.getMessage();
+    }
+  }
+public Property getPropertyById(Long id) {
+    return JR.findById(id).orElse(null); // Fetch the property by its ID
+}
+
+public String updateJob(Property J)
+{
+  try
+  {
+    JR.save(J);
+    return "200::Property details has been updated";
+  }catch(Exception e)
+  {
+    return "404::" + e.getMessage();
+  }
+	
+}
+
+public String deleteJob(Long id)
+  {
+    try
+    {
+      JR.deleteById(id);
+      return "200::Property details has been deleted";
+    }catch(Exception e)
+    {
+      return "404::" + e.getMessage();
+    }
+  }
+}

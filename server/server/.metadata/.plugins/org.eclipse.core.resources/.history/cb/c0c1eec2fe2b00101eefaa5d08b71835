@@ -1,0 +1,72 @@
+package com.example.demo.controller;
+
+import java.util.Map;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Users;
+import com.example.demo.model.UsersManager;
+import com.example.demo.repository.UsersRepository;
+
+
+@CrossOrigin(origins = "http://localhost:5173")
+@RestController
+@RequestMapping("/users")
+public class UsersController {
+	
+	@Autowired
+	UsersManager um;
+	@Autowired
+    private UsersRepository userRepository;
+	
+	@PostMapping("/signup")
+	public String signup(@RequestBody Users U)
+	{
+		return um.addUser(U);
+	}
+//	@PostMapping("/signup")
+//	public String signup(@RequestBody Users U) {
+//	    return "200::Signup OK";
+//	}
+
+//	@PostMapping("/signin")
+//	  public String signin(@RequestBody Users U) {
+//		return um.ValidateCredentials(U.getEmail(),U.getPassword());
+//	  }
+	 @PostMapping("/signin")
+	    public String signIn(@RequestParam String email, @RequestParam String password) {
+	        // Find the user by email
+	        Users user = userRepository.findByEmail(email);
+
+	        // If user is not found or password doesn't match
+	        if (user == null || !user.getPassword().equals(password)) {
+	            return "401::Invalid credentials";  // You can send a custom message here
+	        }
+
+	        // Successful authentication, return the email and fullname
+	        return "200::" + user.getEmail() + "::" + user.getFullname();
+	    }
+	
+	@GetMapping("/forgotpassword/{email}")
+	  public String forgotPassword(@PathVariable("email") String emailid) {
+	    
+	    return um.recoverPassword(emailid);
+	  }
+	
+	
+	@PostMapping("/getfullname")
+	public String getFullname(@RequestBody Map<String, String> data)
+	{
+		return um.getFullname(data.get("csrid"));
+	}
+
+}

@@ -1,0 +1,56 @@
+@Entity
+@Table(name = "properties")
+public class Property {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    
+    @Column(name = "name_of_owner")
+    private String nameOfOwner;
+    
+    @Column(name = "contact")
+    private String contact;
+    
+    @Column(name = "state")
+    private String state;
+    
+    @Column(name = "location")
+    private String location;
+    
+    @Column(name = "property_to_be")
+    private String propertyToBe;
+    
+    @Column(name = "cost")
+    private Double cost;
+    
+    @Column(name = "description")
+    private String description;
+
+    @Lob
+    @Column(name = "image_file")
+    private byte[] imageFile; // Change from pdfFile to imageFile
+
+    @Column(name = "image_file_name")
+    private String imageFileName; // Store image filename
+
+    // Getters and Setters
+    public byte[] getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(byte[] imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
+    }
+
+    // Constructor, other getters, setters, and toString method
+}
