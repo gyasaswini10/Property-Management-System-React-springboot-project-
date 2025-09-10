@@ -45,3 +45,10 @@
 2025-09-10 13:42:38,832 [Worker-59: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2025-09-10 13:42:38,847 [Worker-59: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2025-09-10 13:42:38,850 [Worker-59: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\gyasu\Desktop\CI_CD\cicd_project_property_managment\Property-Manager\server\server\demo\src\test\resources
+2025-09-10 14:02:15,266 [Worker-61: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-10 14:02:15,318 [Worker-61: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-09-10 14:02:15,331 [Worker-61: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\gyasu\Desktop\CI_CD\cicd_project_property_managment\Property-Manager\server\server\demo\src\test\resources
+2025-09-10 14:02:29,608 [Worker-56: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.example:demo:0.0.1-SNAPSHOT @ C:\Users\gyasu\Desktop\CI_CD\cicd_project_property_managment\Property-Manager\server\server\demo\pom.xml.
+2025-09-10 14:02:34,254 [Worker-56: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-10 14:02:34,299 [Worker-56: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-10 14:02:34,340 [Worker-56: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\gyasu\Desktop\CI_CD\cicd_project_property_managment\Property-Manager\server\server\demo\src\test\resources
