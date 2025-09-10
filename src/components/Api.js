@@ -1,5 +1,6 @@
 // CallApi
-export const BASEURL= "http://54.159.4.87:8080/leaselinker2/";
+export const BASEURL= "http://localhost:8080/";
+
 export function callApi(reqmethod, url, data, responseHandler){
   var option;
   if(reqmethod === "GET" || reqmethod === "DELETE")

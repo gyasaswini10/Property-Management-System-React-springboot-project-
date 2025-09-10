@@ -130,7 +130,7 @@ export class Home1 extends Component {
 
     callApi(
       "POST",
-      "http://54.159.4.87:8080/leaselinker2/users/signup",
+      "http://localhost:8080/users/signup",
       data,
       this.getResponse
     );
@@ -155,7 +155,7 @@ export class Home1 extends Component {
       return;
     }
 
-    let url = "http://54.159.4.87:8080/leaselinker2/users/forgotpassword/" + username.value;
+    let url = "http://localhost:8080/users/forgotpassword/" + username.value;
     callApi("GET", url, "", this.forgotPasswordResponse);
   }
 
@@ -202,7 +202,7 @@ export class Home1 extends Component {
 
     callApi(
       "POST",
-      "http://54.159.4.87:8080/leaselinker2/users/signin",
+      "http://localhost:8080/users/signin",
       data,
       this.signinResponse.bind(this)
     );
@@ -302,7 +302,7 @@ export class Home1 extends Component {
             <ul className="NavList">
               <li id="image-logo">
                 <img
-                  src="/images/1.png"
+                  src="./../../public/images/1.png"
                   width="230vh"
                   alt="logo"
                 />
@@ -403,7 +403,7 @@ export class Home1 extends Component {
 
         <div className="footer1">
           <div className="footer1left">
-            <h3>{t("")} </h3>
+            <h3>{t("R Sai Sree")} 2300030570</h3>
           </div>
           <div className="footer1right">
             <img src="./images/facebook.png" alt="facebook" />
