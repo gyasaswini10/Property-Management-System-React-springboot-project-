@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../css/Dashboard.css";
 import { BASEURL, callApi, getSession, setSession } from "./Api";
 import MenuBar from './../components/MenuBar.jsx';
-
 import JobPosting from "./JobPosting";
 import JobSearch from "./JobSearch";
 import Profile from "./Profile";
