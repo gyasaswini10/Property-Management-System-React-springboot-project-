@@ -1147,3 +1147,5 @@
 2025-05-11 02:33:40,179 [Worker-22: Launching demo (2)] INFO  o.eclipse.m2e.core.internal.Bundles - 	Entry: C:\Users\gyasu\.p2\pool\plugins\com.google.guava.failureaccess_1.0.2.jar
 2025-05-11 02:33:40,204 [Worker-22: Launching demo (2)] INFO  o.e.m.i.launch.MavenLaunchDelegate - Run build in "C:\Users\gyasu\Desktop\Finallll\server\server\demo":
 2025-05-11 02:33:40,205 [Worker-22: Launching demo (2)] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -Ppom.xml -B -Dstyle.color=always clean package
+2025-09-17 10:43:45,159 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-09-17 10:44:46,212 [Worker-34: Update Maven projects configuration] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
